@@ -1,0 +1,23 @@
+diff -uNdr dmg2img-1.6.2.orig/Makefile dmg2img-1.6.2/Makefile
+--- dmg2img-1.6.2.orig/Makefile	2010-03-24 23:38:08.000000000 +0300
++++ dmg2img-1.6.2/Makefile	2011-05-29 13:52:51.392923727 +0400
+@@ -1,6 +1,7 @@
+ #CC = gcc
+ CFLAGS = -O2 -Wall
+ BIN_DIR = ${DESTDIR}/usr/bin
++MAN_DIR = ${DESTDIR}/usr/share/man/1
+ 
+ all: dmg2img vfdecrypt 
+ 
+@@ -21,7 +22,10 @@
+ 
+ install: dmg2img vfdecrypt
+ 	mkdir -p ${BIN_DIR}
+-	install -c -s -m 755 -o root -g root dmg2img vfdecrypt $(BIN_DIR)
++	mkdir -p ${MAN_DIR}
++	gzip vfdecrypt.1
++	install -c -s -m 755 dmg2img vfdecrypt $(BIN_DIR)
++	install -m 644 vfdecrypt.1.gz $(MAN_DIR)
+ 
+ clean:
+ 	rm -f dmg2img vfdecrypt *~ *.o core
